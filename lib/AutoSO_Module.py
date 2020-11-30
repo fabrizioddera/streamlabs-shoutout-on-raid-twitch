@@ -2,17 +2,15 @@ import os
 import codecs
 import json
 
-class MySettings(object):
+class AutoSOSettings(object):
 	def __init__(self, settingsfile=None):
 		try:
 			with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
 				self.__dict__ = json.load(f, encoding="utf-8")
 		except:
-			self.Command = "!pang"
-			self.Response = "pong! ^_^"
-			self.Cooldown = 10
-			self.Permission = "everyone"
-			self.Info = ""
+			self.Message = "just raided the channel with"
+			self.BotName = "Streamlabs"
+			self.Command = "so"
 
 	def Reload(self, jsondata):
 		self.__dict__ = json.loads(jsondata, encoding="utf-8")

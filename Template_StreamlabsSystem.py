@@ -11,13 +11,13 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
-from Settings_Module import MySettings
+from AutoSO_Module import AutoSOSettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "Template Script"
+ScriptName = "AutoSO script"
 Website = "https://www.streamlabs.com"
-Description = "!test will post a message in chat"
+Description = "Auto shutout for raid and host"
 Creator = "Fabrizio"
 Version = "1.0.0.0"
 
@@ -27,7 +27,7 @@ Version = "1.0.0.0"
 global SettingsFile
 SettingsFile = ""
 global ScriptSettings
-ScriptSettings = MySettings()
+ScriptSettings = AutoSOSettings()
 
 #---------------------------
 #   [Required] Initialize Data (Only called on load)
@@ -41,17 +41,16 @@ def Init():
         os.makedirs(directory)
 
     #   Load settings
-    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\settings.json")
-    ScriptSettings = MySettings(SettingsFile)
-    ScriptSettings.Response = "Overwritten pong! ^_^"
+    SettingsFile = os.path.join(os.path.dirname(__file__), "Settings\\settings.json")
+    ScriptSettings = AutoSOSettings(SettingsFile)
     return
 
 #---------------------------
 #   [Required] Execute Data / Process messages
 #---------------------------
 def Execute(data):
-    if data.IsChatMessage() and data.Message.find("just raided the channel with") > -1 and getUserName(data.RawData) == 'Streamlabs' :
-        Parent.SendStreamMessage("!so " + getRaider(data.Message))
+    if data.IsChatMessage() and data.Message.find(ScriptSettings.Message) > -1 and getUserName(data.RawData) == ScriptSettings.BotName :
+        Parent.SendStreamMessage("!" + ScriptSettings.Command + " " + getRaider(data.Message))
    
     return
 
@@ -105,5 +104,5 @@ def ScriptToggled(state):
     return
 
 def Log(message):
-    Parent.Log("CIAO", message)
+    Parent.Log("AutoSO", message)
     return
