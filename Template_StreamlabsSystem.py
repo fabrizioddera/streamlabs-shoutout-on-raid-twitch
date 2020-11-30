@@ -19,7 +19,7 @@ ScriptName = "AutoSO script"
 Website = "https://www.streamlabs.com"
 Description = "Auto shutout for raid and host"
 Creator = "Fabrizio"
-Version = "1.0.0.0"
+Version = "1.1.0.0"
 
 #---------------------------
 #   Define Global Variables
